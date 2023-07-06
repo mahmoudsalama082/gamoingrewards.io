@@ -1,10 +1,7 @@
 <!DOCTYPE html>
 <html>
-<head>
-<title>Postback</title>
-</head>
 <body>
-<form method="GET" action="HTTP://gaming-rewards.tech/wannads.php">
+<form method="GET" action="http://gaming-rewards.tech/wannads.php">
   <input type="hidden" name="subId" id="subId" value="subId" />
   <input type="hidden" name="transId" id="transId" value="transId" />
   <input type="hidden" name="reward" id="reward" value="reward" />
@@ -34,7 +31,7 @@ function updateValues() {
 
   // Send the values to the PHP file and get the response
   var xhr = new XMLHttpRequest();
-  xhr.open('GET', '"HTTP://gaming-rewards.tech/wannads.php?' + values, true);
+  xhr.open('GET', 'http://gaming-rewards.tech/wannads.php?' + values, true);
   xhr.onload = function() {
     var response = xhr.responseText;
 
