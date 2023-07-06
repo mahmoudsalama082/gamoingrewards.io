@@ -1,51 +1,56 @@
+<!DOCTYPE html>
 <html>
-
+<head>
+<title>Postback</title>
+</head>
 <body>
-  <form method="GET" action="wannads.php">
-    <input type="hidden" name="subId" id="subId" value="subId" />
-    <input type="hidden" name="transId" id="transId" value="transId" />
-    <input type="hidden" name="reward" id="reward" value="reward" />
-    <input type="hidden" name="payout" id="payout" value="payout" />
-    <input type="hidden" name="signature" id="signature" value="signature" />
-    <input type="hidden" name="status" id="status" value="status" />
-    <input type="hidden" name="userIp" id="userIp" value="userIp" />
-    <input type="hidden" name="campaign_id" id="campaign_id" value="campaign_id" />
-    <input type="hidden" name="campaign_name" id="campaign_name" value="campaign_name" />
-    <input type="hidden" name="country" id="country" value="EG" />
-    <input type="hidden" name="uuid" id="uuid" value="uuid" />
-    <input type="submit" value="Submit" />
-  </form>
+<form method="GET" action="HTTP://gaming-rewards.tech/wannads.php">
+  <input type="hidden" name="subId" id="subId" value="subId" />
+  <input type="hidden" name="transId" id="transId" value="transId" />
+  <input type="hidden" name="reward" id="reward" value="reward" />
+  <input type="hidden" name="payout" id="payout" value="payout" />
+  <input type="hidden" name="signature" id="signature" value="signature" />
+  <input type="hidden" name="status" id="status" value="status" />
+  <input type="hidden" name="userIp" id="userIp" value="userIp" />
+  <input type="hidden" name="campaign_id" id="campaign_id" value="campaign_id" />
+  <input type="hidden" name="campaign_name" id="campaign_name" value="campaign_name" />
+  <input type="hidden" name="country" id="country" value="EG" />
+  <input type="hidden" name="uuid" id="uuid" value="uuid" />
+</form>
 
-   <script>
-    function updateValues() {
-      var postbackUrl = window.location.href;
-      var values = postbackUrl.split('?')[1];
-      var params = values.split('&');
+<script>
+function updateValues() {
+  var postbackUrl = window.location.href;
+  var values = postbackUrl.split('?')[1];
+  var params = values.split('&');
 
-      for (var i = 0; i < params.length; i++) {
-        var param = params[i].split('=');
-        var name = param[0];
-        var value = param[1];
+  for (var i = 0; i < params.length; i++) {
+    var param = params[i].split('=');
+    var name = param[0];
+    var value = param[1];
 
-        document.getElementById(name).value = value;
-      }
+    document.getElementById(name).value = value;
+  }
 
-      // Send the values to the PHP file
-      var xhr = new XMLHttpRequest();
-      xhr.open('GET', 'my_php_file.php?' + values, true);
-      xhr.send();
+  // Send the values to the PHP file and get the response
+  var xhr = new XMLHttpRequest();
+  xhr.open('GET', '"HTTP://gaming-rewards.tech/wannads.php?' + values, true);
+  xhr.onload = function() {
+    var response = xhr.responseText;
 
-      // Get the response from the PHP file
-      var response = xhr.responseText;
+    // Send the response to the affiliate network as part of the postback
+    var postback =response;
+    document.getElementById('postback').innerHTML = postback;
+  };
+  xhr.send();
 
-      // Send the response to the affiliate network as part of the postback
-      var postback = 'subId=' + value + '&transId=' + value + '&response=' + response;
-      document.getElementById('postback').innerHTML = postback;
-    }
+  // Disable the submit button
+  document.getElementById('submit').disabled = true;
+}
 
-    window.onload = updateValues;
-  </script>
+window.onload = updateValues;
+</script>
 
-  <p id="postback"></p>
+<p id="postback"></p>
 </body>
 </html>
